@@ -108,14 +108,16 @@ import bridges.base.*;
 				} 
 			
                 try {
+
+                    System.out.println("Please enter starting Node: ");
+                    start = kb.next();
+
                     if (choice.equals("a")) {
-
-                        System.out.println("Please enter starting Actor: ");
-                        start = kb.next();
-
-                        System.out.println("Please enter Actor to find: ");
-                        end = kb.next();
-
+						System.out.println("Please enter Actor to find: ");
+					} else {
+						System.out.println("Please enter Movie to find: ");
+					}
+                    end = kb.next();
 
                         //Instantiate variables
                         HashMap<String, String> parent = new HashMap<>();
@@ -176,7 +178,7 @@ import bridges.base.*;
                         }
 
 
-                    }
+
                 }catch(NullPointerException e){
                     System.out.println("I'm sorry, that is not a valid search query");
                 }
@@ -190,21 +192,5 @@ import bridges.base.*;
 				bridges.visualize();
 			}
 	    }
-	}
+}
 
-//				//set the input to red to indicate what was chosen
-//				graph.getVertices().get(name).setVisualizer(red);
-//
-//				//make a variable of the linked list
-//				SLelement<Edge<String>> state = graph.getAdjacencyList(name);
-//
-//				//iterate through linked list changing the nodes connected to the selected to yellow to indicate connection
-//				while(state != null){
-//
-//					//set node to yellow
-//					String item = state.getValue().getVertex();
-//					graph.getVertices().get(item).setVisualizer(yellow);
-//
-//					//get next node
-//					state = state.getNext();
-//				}
