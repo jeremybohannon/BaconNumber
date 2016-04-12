@@ -106,7 +106,8 @@ import bridges.base.*;
 					System.out.println("Goodbye.");
 					System.exit(0);
 				} 
-			
+
+                //Didn't have time to add individual error handling so try catch in case an input combination is invalid
                 try {
 
                     System.out.println("Please enter starting Node: ");
@@ -120,61 +121,74 @@ import bridges.base.*;
                     end = kb.next();
 
                         //Instantiate variables
+                        //Parent hashmap to hold the parents of each node to use for path finding
                         HashMap<String, String> parent = new HashMap<>();
+                        //Distance hasmap to hold the distance between nodes
                         HashMap<String, Integer> distance = new HashMap<>();
+                        //Visited hasmap to check if a node has been visited
                         HashMap<String, Boolean> visited = new HashMap<>();
-
+                        //Queue to use in BFS search
                         LQueue<String> queue = new LQueue<>();
-
+                        //SLement to get linkedlist of nodes
                         SLelement<Edge<String>> state;
-
-                        int count = 0;
 
                         //Begin queue loading
                         queue.enqueue(start);
                         distance.put(start, 0);
                         parent.put(start, start);
 
+                        //BFS search, while there is something in the queue
                         while (queue.frontValue() != null) {
+                            //If the node in the queue is the node we are looking for
                             if (queue.frontValue().equals(end)) {
                                 System.out.println("Path Length: " + distance.get(end));
                                 break;
                             }
 
+                            //Take current actor out of the queue
                             String actor = queue.dequeue();
-
+                            //We visited the actor
                             visited.put(actor, true);
-
+                            //Get linked list of the node
                             state = graph.getAdjacencyList(actor);
 
+                            //While there is a node left in linked list
                             while (state != null) {
+                                //get value in linked list
                                 String current = state.getValue().getVertex();
 
+                                //if we have yet to visit the node
                                 if (!visited.containsKey(current)) {
+                                    //add node into queue
                                     queue.enqueue(current);
-
+                                    //We visited the node
                                     visited.put(current, true);
-
+                                    //Record the distance of the node from current node
                                     distance.put(current, distance.get(actor) + 1);
-
+                                    //Record the parent of the node
                                     parent.put(current, actor);
-
+                                    //A really bad way to make sure we don't set the end node to orange
                                     if(!current.equals(end)) {
                                         graph.getVertices().get(current).setVisualizer(orange);
                                     }
                                 }
+                                //get next element in linked list
                                 state = state.getNext();
                             }
-                            count++;
                         }
 
+                        //Instantiate variables
                         String parentS = "";
-                        String end2 = end;
+                        String currNode = end;
+
+                        //While loop to find the path from starting node to end node
                         while (!parentS.equals(start)) {
-                            parentS = parent.get(end2);
-                            System.out.println(parentS);
+                            //Get the parent node of the last node
+                            parentS = parent.get(currNode);
+                            //Set the node to yellow
                             graph.getVertices().get(parentS).setVisualizer(yellow);
-                            end2 = parentS;
+                            //Set the current node to the parent of the last node
+                            currNode = parentS;
                         }
 
 
@@ -182,6 +196,7 @@ import bridges.base.*;
                 }catch(NullPointerException e){
                     System.out.println("I'm sorry, that is not a valid search query");
                 }
+                //Ensure the starting and end node are red
                 graph.getVertices().get(start).setVisualizer(red);
                 graph.getVertices().get(end).setVisualizer(red);
 
