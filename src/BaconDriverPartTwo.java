@@ -6,7 +6,7 @@ import java.util.Scanner;
 import bridges.base.*;
 	import bridges.connect.*;
 
-	public class BaconDriver {
+	public class BaconDriverPartTwo {
 		static GraphAdjList<String, String> graph;
 		
 		public static void main(String[] args) throws Exception{
