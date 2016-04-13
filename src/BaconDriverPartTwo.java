@@ -57,7 +57,7 @@ import bridges.base.*;
 			//instantiate colors 
 			ElementVisualizer bisque = new ElementVisualizer("bisque");
 			ElementVisualizer red = new ElementVisualizer("red");
-			ElementVisualizer yellow = new ElementVisualizer("yellow");
+			ElementVisualizer aqua = new ElementVisualizer("aqua");
 			ElementVisualizer lightsteelblue = new ElementVisualizer("lightsteelblue");
             ElementVisualizer orange = new ElementVisualizer("orange");
 			
@@ -185,8 +185,8 @@ import bridges.base.*;
                         while (!parentS.equals(start)) {
                             //Get the parent node of the last node
                             parentS = parent.get(currNode);
-                            //Set the node to yellow
-                            graph.getVertices().get(parentS).setVisualizer(yellow);
+                            //Set the node to aqua
+                            graph.getVertices().get(parentS).setVisualizer(aqua);
                             //Set the current node to the parent of the last node
                             currNode = parentS;
                         }
